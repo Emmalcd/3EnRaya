@@ -1,0 +1,7 @@
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\bin\Debug\Desafio3EnRaya.exe.config
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\bin\Debug\Desafio3EnRaya.exe
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\bin\Debug\Desafio3EnRaya.pdb
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\obj\Debug\Desafio3EnRaya.csproj.AssemblyReference.cache
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\obj\Debug\Desafio3EnRaya.csproj.CoreCompileInputs.cache
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\obj\Debug\Desafio3EnRaya.exe
+C:\Users\jose_\Documents\Ejercicios Visual\Desafio3EnRaya\Desafio3EnRaya\obj\Debug\Desafio3EnRaya.pdb
