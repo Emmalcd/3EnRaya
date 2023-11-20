@@ -22,8 +22,11 @@ namespace Desafio3EnRaya
         {
             darBienvenida();
             Console.Clear();
-            jugador1=pedirNombreJugador(1);
-            jugador2=pedirNombreJugador(2);
+            jugador1 = pedirNombreJugador(1);
+            jugador2 = pedirNombreJugador(2);
+            Console.Clear();
+            pintarTablero();
+
             
             Console.ReadLine();
         }
@@ -40,6 +43,22 @@ namespace Desafio3EnRaya
             Console.WriteLine("Escribe el nombre del jugador "+ num+":");
             return Console.ReadLine();
         }
+
+        static void pintarTablero()
+        {
+            Console.Clear();
+            for(int i =0; i < 3; i++)
+            {
+                for(int j = 0; j < 3; j++)
+                {
+                    Console.Write($"  |{tablero[i, j]}|  ");
+                }
+                Console.WriteLine();
+                if(i!=2)
+                Console.WriteLine("---------------------");
+            }
+        }
+
 
     }
 
