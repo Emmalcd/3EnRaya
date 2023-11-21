@@ -26,17 +26,20 @@ namespace Desafio3EnRaya
         static int renglon = 0;
         static void Main(string[] args)
         {
-            //darBienvenida();
-            //Console.Clear();
-            //jugador1 = pedirNombreJugador(1);
-            //jugador2 = pedirNombreJugador(2);
+            darBienvenida();
+            Console.Clear();
+            jugador1 = pedirNombreJugador(1);
+            jugador2 = pedirNombreJugador(2);
             pintarTablero();
             pideJugada(1, 'X');
+            pintarTablero();
+            pideJugada(2, '0');
             pintarTablero();
 
 
             Console.ReadLine();
         }
+
         static void darBienvenida()
         {
             Console.WriteLine("Bienvenido al juego de 3 en raya...");
@@ -69,19 +72,19 @@ namespace Desafio3EnRaya
 
         static void pideJugada(int jugador, char caracter)
         {
+            casillaRecorrida = 0;
             Console.WriteLine($"Turno del jugador {jugador} ({caracter}): ");
             Console.WriteLine("Ingresa el número de casilla donde deseas tirar (1-9)");
-            //do
-            //{
-            //    if (!tiroValido)
-            //    {
-            //        Console.WriteLine("El tiro no puede ejecutarse en la casilla seleccionada por favor elije otra");
-            //    }
-            //    tiroValido=validaTiro(Console.ReadLine());
+            do
+            {
+                if (!tiroValido)
+                {
+                    Console.WriteLine("El tiro no puede ejecutarse en la casilla seleccionada por favor elije otra");
+                }
+                tiroValido = validaTiro(Console.ReadLine());
 
-            //} while (tiroValido!=true);
-            casillaElegida = int.Parse(Console.ReadLine());
-
+            } while (!tiroValido);
+            casillaRecorrida = 0;
             if (jugador == 1)
             {
                 for (int i = 0; i < 3; i++)
@@ -99,7 +102,6 @@ namespace Desafio3EnRaya
                     {
                         break;
                     }
-
                 }
             }
             else
@@ -108,19 +110,58 @@ namespace Desafio3EnRaya
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        columna++;
-                        if (casillaRecorrida == casillaElegida)
-                            break;
                         casillaRecorrida++;
+                        if (casillaElegida == casillaRecorrida)
+                        {
+                            tablero[i, j] = '0';
+                            break;
+                        }
                     }
-                    renglon++;
-                    if (casillaRecorrida == casillaElegida)
+                    if (casillaElegida == casillaRecorrida)
+                    {
                         break;
-                    columna = -1;
+                    }
                 }
-                tablero[columna, renglon] = '0';
             }
         }
+
+        static bool validaTiro(string jugada)
+        {
+            if (!int.TryParse(jugada, out casillaElegida))
+            {
+                return false;
+            }
+            else
+            {
+                if ((casillaElegida >= 1) && (casillaElegida <= 9))
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            casillaRecorrida++;
+                            if (casillaElegida == casillaRecorrida)
+                            {
+                                return (casillaElegida == 'X' || casillaElegida == '0') ? false : true;
+                            }
+
+                        }
+                        if (casillaElegida == casillaRecorrida)
+                        {
+                            break;
+                        }
+
+                    }
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
     }
 }
 
