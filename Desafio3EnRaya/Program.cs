@@ -6,28 +6,35 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Xml.Schema;
 
 namespace Desafio3EnRaya
 {
     internal class Program
     {
-        static string jugador1=string.Empty;
-        static string jugador2=string.Empty;
-        static string[,] tablero = {
-            {"1","2","3" },
-            {"4","5","6" },
-            {"7","8","9" }
+        static string jugador1 = string.Empty;
+        static string jugador2 = string.Empty;
+        static char[,] tablero = {
+            {'1','2','3' },
+            {'4','5','6' },
+            {'7','8','9' }
         };
+        static bool tiroValido = true;
+        static int casillaElegida;
+        static int casillaRecorrida = 0;
+        static int columna = 0;
+        static int renglon = 0;
         static void Main(string[] args)
         {
-            darBienvenida();
-            Console.Clear();
-            jugador1 = pedirNombreJugador(1);
-            jugador2 = pedirNombreJugador(2);
-            Console.Clear();
+            //darBienvenida();
+            //Console.Clear();
+            //jugador1 = pedirNombreJugador(1);
+            //jugador2 = pedirNombreJugador(2);
+            pintarTablero();
+            pideJugada(1, 'X');
             pintarTablero();
 
-            
+
             Console.ReadLine();
         }
         static void darBienvenida()
@@ -38,29 +45,83 @@ namespace Desafio3EnRaya
             Console.ReadLine();
             return;
         }
+
         static string pedirNombreJugador(int num)
         {
-            Console.WriteLine("Escribe el nombre del jugador "+ num+":");
+            Console.WriteLine("Escribe el nombre del jugador " + num + ":");
             return Console.ReadLine();
         }
 
         static void pintarTablero()
         {
             Console.Clear();
-            for(int i =0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     Console.Write($"  |{tablero[i, j]}|  ");
                 }
                 Console.WriteLine();
-                if(i!=2)
-                Console.WriteLine("---------------------");
+                if (i != 2)
+                    Console.WriteLine("---------------------");
             }
         }
 
+        static void pideJugada(int jugador, char caracter)
+        {
+            Console.WriteLine($"Turno del jugador {jugador} ({caracter}): ");
+            Console.WriteLine("Ingresa el número de casilla donde deseas tirar (1-9)");
+            //do
+            //{
+            //    if (!tiroValido)
+            //    {
+            //        Console.WriteLine("El tiro no puede ejecutarse en la casilla seleccionada por favor elije otra");
+            //    }
+            //    tiroValido=validaTiro(Console.ReadLine());
 
+            //} while (tiroValido!=true);
+            casillaElegida = int.Parse(Console.ReadLine());
+
+            if (jugador == 1)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        casillaRecorrida++;
+                        if (casillaElegida == casillaRecorrida)
+                        {
+                            tablero[i, j] = 'X';
+                            break;
+                        }
+                    }
+                    if (casillaElegida == casillaRecorrida)
+                    {
+                        break;
+                    }
+
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        columna++;
+                        if (casillaRecorrida == casillaElegida)
+                            break;
+                        casillaRecorrida++;
+                    }
+                    renglon++;
+                    if (casillaRecorrida == casillaElegida)
+                        break;
+                    columna = -1;
+                }
+                tablero[columna, renglon] = '0';
+            }
+        }
     }
-
 }
+
 
