@@ -22,20 +22,25 @@ namespace Desafio3EnRaya
         static bool tiroValido = true;
         static int casillaElegida;
         static int casillaRecorrida = 0;
-        static int columna = 0;
-        static int renglon = 0;
+
         static void Main(string[] args)
         {
             darBienvenida();
             Console.Clear();
             jugador1 = pedirNombreJugador(1);
             jugador2 = pedirNombreJugador(2);
-            pintarTablero();
-            pideJugada(1, 'X');
-            pintarTablero();
-            pideJugada(2, '0');
-            pintarTablero();
-
+            do
+            {
+                pintarTablero();
+                pideJugada(1, 'X');
+                pintarTablero();
+                if (verificaGanador())
+                    break;
+                pideJugada(2, '0');
+                pintarTablero();
+                verificaGanador();
+            } while (!verificaGanador());
+            Console.WriteLine("El juego termino");
 
             Console.ReadLine();
         }
@@ -73,7 +78,7 @@ namespace Desafio3EnRaya
         static void pideJugada(int jugador, char caracter)
         {
             casillaRecorrida = 0;
-            Console.WriteLine($"Turno del jugador {jugador} ({caracter}): ");
+            Console.WriteLine($"\n\nTurno del jugador {jugador} ({caracter}): ");
             Console.WriteLine("Ingresa el número de casilla donde deseas tirar (1-9)");
             do
             {
@@ -160,6 +165,46 @@ namespace Desafio3EnRaya
                 }
 
             }
+        }
+
+
+
+        static bool verificaGanadorHorizontal()
+        {
+            for (int i=0;i<3;i++)
+            {
+                if (tablero[i,0]== tablero[i, 1])
+                {
+                    if (tablero[i, 1] == tablero[i, 2])
+                        return true;
+                }
+            }
+            return false;
+        }
+        static bool verificaGanadorVertical()
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (tablero[0, j] == tablero[1,j])
+                {
+                    if (tablero[1, j] == tablero[2, j])
+                        return true;
+                }
+            }
+            return false;
+
+        }
+
+
+        //static bool verificaGanadorDiagonal()
+        //{
+
+        //}
+        static bool verificaGanador()
+        {
+            if(verificaGanadorHorizontal()||verificaGanadorVertical())
+                return true;
+            return false;
         }
 
     }
