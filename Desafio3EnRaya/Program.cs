@@ -22,6 +22,7 @@ namespace Desafio3EnRaya
         static bool tiroValido = true;
         static int casillaElegida;
         static int casillaRecorrida = 0;
+        static int jugada = 0;
 
         static void Main(string[] args)
         {
@@ -39,8 +40,12 @@ namespace Desafio3EnRaya
                 pideJugada(2, '0');
                 pintarTablero();
                 verificaGanador();
+                if (jugada == 9)
+                    break;
+
             } while (!verificaGanador());
-            Console.WriteLine("El juego termino");
+
+            juegoTerminado();
 
             Console.ReadLine();
         }
@@ -100,6 +105,7 @@ namespace Desafio3EnRaya
                         if (casillaElegida == casillaRecorrida)
                         {
                             tablero[i, j] = 'X';
+                            jugada++;
                             break;
                         }
                     }
@@ -119,6 +125,7 @@ namespace Desafio3EnRaya
                         if (casillaElegida == casillaRecorrida)
                         {
                             tablero[i, j] = '0';
+                            jugada++;
                             break;
                         }
                     }
@@ -167,8 +174,6 @@ namespace Desafio3EnRaya
             }
         }
 
-
-
         static bool verificaGanadorHorizontal()
         {
             for (int i=0;i<3;i++)
@@ -194,17 +199,92 @@ namespace Desafio3EnRaya
             return false;
 
         }
-        //static bool verificaGanadorDiagonal()
-        //{
+        static bool verificaGanadorDiagonal1()
+        {
+            if (tablero[0, 0] == tablero[2, 2])
+            {
+                if (tablero[2, 2] == tablero[1, 1])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        static bool verificaGanadorDiagonal2()
+        {
+            if (tablero[0, 2] == tablero[1, 1])
+            {
+                if (tablero[1, 1] == tablero[2, 0])
+                {
+                    return true;
+                }
+            }
+            return false;
 
-        //}
-
-
+        }
         static bool verificaGanador()
         {
-            if(verificaGanadorHorizontal()||verificaGanadorVertical())
+            if (verificaGanadorHorizontal() || verificaGanadorVertical())
+            {
+               return true;
+            }
+            else if(verificaGanadorDiagonal1()||verificaGanadorDiagonal2())
+            {
                 return true;
+            }
             return false;
+        }
+
+        static void juegoTerminado()
+        {
+            if (jugada == 9)
+            {
+            Console.WriteLine("El juego ha terminado en empate.");
+            }
+            else
+            {
+                if (jugada % 2 == 0)
+                {
+                    Console.WriteLine($"El jugador {jugador2} ha resultado ganador");
+                }
+                else
+                {
+                    Console.WriteLine($"El jugador {jugador1} ha resultado ganador");
+                }
+
+            }
+        }
+
+        static void pregunta(int resp)
+        {
+            if (resp == 1)
+            {
+                darBienvenida();
+                Console.Clear();
+                jugador1 = pedirNombreJugador(1);
+                jugador2 = pedirNombreJugador(2);
+                do
+                {
+                    pintarTablero();
+                    pideJugada(1, 'X');
+                    pintarTablero();
+                    if (verificaGanador())
+                        break;
+                    pideJugada(2, '0');
+                    pintarTablero();
+                    verificaGanador();
+                    if (jugada == 9)
+                        break;
+
+                } while (!verificaGanador());
+
+                juegoTerminado();
+            }
+            else
+            {
+                Console.WriteLine("Este es el final del juego, gracias por jugar");
+                return;
+            }
         }
 
     }
