@@ -194,12 +194,12 @@ namespace Desafio3EnRaya
             return false;
 
         }
-
-
         //static bool verificaGanadorDiagonal()
         //{
 
         //}
+
+
         static bool verificaGanador()
         {
             if(verificaGanadorHorizontal()||verificaGanadorVertical())
